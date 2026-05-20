@@ -752,7 +752,7 @@ function scheduleBotMsg() {
     if (dmUser) {
       user = dmUser; // Forzamos a que el que responda sea el dueño del DM
       // Buscamos sus respuestas en BOT_POOL usando la clave exacta (ej: 'dm-sara')
-      pool = BOT_POOL[ch] || ['¡Hola! Estoy revisando lo que me enviaste.', 'Dale, ahí lo veo. 👍'];
+      pool = BOT_POOL[ch] || ['¡Hola! Estoy revisando lo que me enviaste.', 'Dale, ahí lo veo. 👍', 'Hola, ya te contesto', 'Banca, ya te respondo'];
     } else {
       return; // Si por alguna razón no encuentra al usuario, salta este ciclo
     }
