@@ -734,17 +734,51 @@ function updatePlaceholder() {
 //  BOTS
 // ══════════════════════════════════════════
 function scheduleBotMsg() {
-  const channels = Object.keys(BOT_POOL);
-  const ch   = channels[Math.floor(Math.random() * channels.length)];
-  const pool = BOT_POOL[ch];
+  // Obtenemos todos los canales donde hay mensajes actualmente
+  const activeChannels = Object.keys(State.messages);
+  
+  // Elegimos uno al azar
+  const ch = activeChannels[Math.floor(Math.random() * activeChannels.length)];
+  
+  let pool = BOT_POOL[ch];
+  let user = USERS[Math.floor(Math.random() * USERS.length)];
+
+  // ─── NUEVA LÓGICA: Manejo especial si cae en un canal de DM ───
+  if (ch.startsWith('dm-')) {
+    const targetName = ch.replace('dm-', '');
+    // Buscamos al usuario dueño de ese DM
+    const dmUser = USERS.find(u => u.name.toLowerCase() === targetName.toLowerCase());
+    
+    if (dmUser) {
+      user = dmUser; // Forzamos a que el que responda sea el dueño del DM
+      // Buscamos sus respuestas en BOT_POOL usando la clave exacta (ej: 'dm-sara')
+      pool = BOT_POOL[ch] || ['¡Hola! Estoy revisando lo que me enviaste.', 'Dale, ahí lo veo. 👍'];
+    } else {
+      return; // Si por alguna razón no encuentra al usuario, salta este ciclo
+    }
+  }
+  // ─────────────────────────────────────────────────────────────
+
   const text = pool[Math.floor(Math.random() * pool.length)];
-  const user = USERS[Math.floor(Math.random() * USERS.length)];
   botSendWithTyping(ch, user, text);
 }
 function scheduleConnectionNotif() {
   const user = USERS[Math.floor(Math.random() * USERS.length)];
   const acts = ['se conectó', 'está en línea', 'se desconectó'];
   const act  = acts[Math.floor(Math.random() * acts.length)];
+  
+  // ─── NUEVA LÓGICA: Actualiza el estado real de la pelotita ───
+  if (act === 'se desconectó') {
+    user.status = 'offline';
+  } else {
+    // Si dice 'se conectó' o 'está en línea', pasa a 'online'
+    user.status = 'online';
+  }
+  
+  // Volvemos a renderizar la lista de miembros para que cambie el color
+  renderMembers();
+  // ─────────────────────────────────────────────────────────────
+
   showToast('👤', `${user.name} ${act}`);
   Audio.notify();
   logAct(`${user.name} ${act}`);
