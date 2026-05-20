@@ -1,6 +1,6 @@
 /* ====================================================
-   GLITCH CHAT v2 — script.js
-   Arquitectura: State → Render → Events
+  GLITCH CHAT v2 — script.js
+  Arquitectura: State → Render → Events
    ==================================================== */
 
 'use strict';
