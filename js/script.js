@@ -243,9 +243,12 @@ function hideTyping() {
 function botSendWithTyping(channel, user, text) {
   if (channel === State.currentChannel) {
     showTyping(user.name);
-    setTimeout(() => { hideTyping(); deliverBotMsg(channel, user, text); }, 1500 + Math.random() * 800);
+    setTimeout(() => { 
+      hideTyping(); 
+      deliverBotMsg(channel, user, text); 
+    }, 3000);
   } else {
-    setTimeout(() => deliverBotMsg(channel, user, text), 1800);
+    setTimeout(() => deliverBotMsg(channel, user, text), 3000);
   }
 }
 function deliverBotMsg(channel, user, text) {
