@@ -243,9 +243,12 @@ function hideTyping() {
 function botSendWithTyping(channel, user, text) {
   if (channel === State.currentChannel) {
     showTyping(user.name);
-    setTimeout(() => { hideTyping(); deliverBotMsg(channel, user, text); }, 500 + Math.random() * 750);
+    setTimeout(() => { 
+      hideTyping(); 
+      deliverBotMsg(channel, user, text); 
+    }, 3000);
   } else {
-    setTimeout(() => deliverBotMsg(channel, user, text), 300);
+    setTimeout(() => deliverBotMsg(channel, user, text), 3000);
   }
 }
 function deliverBotMsg(channel, user, text) {
@@ -938,7 +941,7 @@ document.addEventListener('DOMContentLoaded', () => {
   scrollToBottom();
 
   // Bots (arrancan después de que el usuario entre)
-  setTimeout(() => scheduleBotMsg(), 3000);
-  setInterval(() => scheduleBotMsg(), 3000);
-  setInterval(() => scheduleConnectionNotif(), 3000);
+  setTimeout(() => scheduleBotMsg(), 1000);
+  setInterval(() => scheduleBotMsg(), 2000);
+  setInterval(() => scheduleConnectionNotif(), 1000);
 });
