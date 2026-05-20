@@ -751,8 +751,16 @@ function scheduleBotMsg() {
     
     if (dmUser) {
       user = dmUser; // Forzamos a que el que responda sea el dueño del DM
-      // Buscamos sus respuestas en BOT_POOL usando la clave exacta (ej: 'dm-sara')
-      pool = BOT_POOL[ch] || ['¡Hola! Estoy revisando lo que me enviaste.', 'Dale, ahí lo veo. 👍', 'Hola, ya te contesto', 'Banca, ya te respondo'];
+      
+      // Acá ya te dejé el pack con las 6 frases nuevas, modernas y juveniles de respuesta por defecto
+      pool = BOT_POOL[ch] || [
+        '¡Holaaa! Sisi, ya vi tu mensaje 👀 Dame dos minutitos y te respondo bien.',
+        'Buenas! Alguien está necesitando mi ayuda de experto por lo que veo... 😎✨',
+        'Hola! Mensaje recibido 📥 Si tardo en contestar es porque me colgué con un TikTok jajaja',
+        'Holiis 👋 Bancame que me tomo un café y nos ponemos al dia con eso ☕',
+        '¡Aparición con vida! Qué onda? Pasame el chisme completo de una',
+        'Aloha! Mi detector de notificaciones acaba de sonar 🚨 Decime, qué rompimos ahora? 😂'
+      ];
     } else {
       return; // Si por alguna razón no encuentra al usuario, salta este ciclo
     }
